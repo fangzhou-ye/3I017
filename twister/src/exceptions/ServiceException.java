@@ -1,9 +1,9 @@
-package errors;
+package exceptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ServiceError {
+public class ServiceException {
 
 	public static JSONObject serviceRefused(String msg, int code) throws JSONException {
 		JSONObject obj = new JSONObject();

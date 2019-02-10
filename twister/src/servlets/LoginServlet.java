@@ -15,7 +15,12 @@ import services.LoginService;
 
 public class LoginServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String login = req.getParameter("login");
 		String password = req.getParameter("password");
 		PrintWriter out = resp.getWriter();
@@ -24,9 +29,9 @@ public class LoginServlet extends HttpServlet {
 		/*
 		try {
 			JSONObject res = LoginService.login(login, password);
-			out.println(res);
+			out.println(res.toString());
 		} catch (JSONException e) {
-			out.println("JSON Exception");
+			out.println("JSON error");
 		}
 		*/
 	}
