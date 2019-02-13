@@ -8,4 +8,12 @@
   	<servlet-name>login</servlet-name>
   	<url-pattern>/user/login</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>create</servlet-name>
+  	<servlet-class>servlets.CreateUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>create</servlet-name>
+  	<url-pattern>/user/create</url-pattern>
+  </servlet-mapping>
 </web-app>
