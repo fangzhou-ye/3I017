@@ -27,15 +27,5 @@ public class LoginService {
 		res.put("key", key);
 		return res;
 	}
-	/*
-	public static void main(String[] args) {
-		try {
-			JSONObject obj = login("admin", "123");
-			System.out.println(obj);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	*/
+	
 }
