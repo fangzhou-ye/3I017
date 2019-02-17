@@ -16,6 +16,7 @@ import services.CreateUserService;
 public class CreateUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		/*
 		String login = req.getParameter("login");
 		String password = req.getParameter("password");
 		String nom = req.getParameter("nom");
@@ -25,7 +26,7 @@ public class CreateUserServlet extends HttpServlet {
 		out.println(password);
 		out.println(nom);
 		out.println(prenom);
-		
+		*/
 		try {
 			JSONObject res = CreateUserService.createUser(login, password, nom, prenom);
 			out.println(res.toString());

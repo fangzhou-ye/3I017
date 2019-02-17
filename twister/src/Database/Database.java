@@ -7,37 +7,61 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-// mysql -u root -p pwd root
-public class Database implements DBStatic{
-	
+
+public class Database {
 	private DataSource dataSource;
-	public static Database database;
+	private static Database database = null;
+
 	
 	public Database(String jndiname) throws SQLException {
-		try {
+		try{
 			dataSource = (DataSource) new InitialContext().lookup("java:comp/env/" + jndiname);
-		} catch (NamingException e) {
-			// Handle error that it’s not configured in JNDI.
-			throw new SQLException(jndiname + " is missing in JNDI! : " + e.getMessage());
+		}catch(NamingException e){
+			throw new SQLException(jndiname + " is missing in JDNI! : " + e.getMessage());
 		}
 	}
 	
 	public Connection getConnection() throws SQLException {
-		// ???
-		database = new Database("jdbc/db");
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dataSource.getConnection();
 	}
 	
-	public static Connection getMySQLConnection() throws SQLException {
-		if(DBStatic.mysql_pooling == false) {
-			return DriverManager.getConnection("jdbc:mysql//" + DBStatic.mysql_host + "/" + DBStatic.mysql_db, 
-												DBStatic.mysql_username,
-												DBStatic.mysql_password);
-		}else {
-			if(database == null) {
+	public static Connection getMySQLConnection() {
+		/*
+		if (DBStatic.mysql_pooling == false){
+			Class.forName("com.mysql.jdbc.Driver");
+			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.mysql_host + "/" + 
+					DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password));
+		}
+		else{
+			if (database == null){
 				database = new Database("jdbc/db");
 			}
-			return database.getConnection();
+			return (database.getConnection());
+		}*/
+		Connection conn = null;
+		try {
+			Class.forName(DBStatic.JDBC_DRIVER);
+			conn = DriverManager.getConnection(DBStatic.DB_URL, DBStatic.USER, DBStatic.PASS);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return conn;
 	}
+
 }

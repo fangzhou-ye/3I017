@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.SQLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,8 +17,13 @@ public class LoginService {
 			return ServiceException.serviceRefused("wrong argument", 1);
 		}
 		// check if user exists
-		if(!UserTools.userExists(login)) {
-			return ServiceException.serviceRefused("unknown user", 10);
+		try {
+			if(!UserTools.userExists(login)) {
+				return ServiceException.serviceRefused("unknown user", 10);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// check if password correct
 		if(!UserTools.checkPassword(login, password)) {
