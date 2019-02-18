@@ -15,11 +15,11 @@ public class CreateUserService {
 			return ServiceException.serviceRefused("wrong argument", -1);
 		}
 		if(UserTools.loginExists(login)) {
-			return ServiceException.serviceRefused("login already exists", 1);
+			return ServiceException.serviceRefused("user(login) already exists", 1);
 		}
 		if(UserTools.addNewUser(login, password, nom, prenom)) {
 			JSONObject res = new JSONObject();
-			res.put("retour", "OK");
+			res.put("result", "new user added successfully!");
 			return res;
 		}else {
 			return ServiceException.serviceRefused("add user fails", 2);

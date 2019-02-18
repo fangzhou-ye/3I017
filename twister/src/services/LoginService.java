@@ -18,7 +18,7 @@ public class LoginService {
 		}
 		// check if user exists
 		try {
-			if(!UserTools.userExists(login)) {
+			if(!UserTools.loginExists(login)) {
 				return ServiceException.serviceRefused("unknown user", 10);
 			}
 		} catch (SQLException e) {

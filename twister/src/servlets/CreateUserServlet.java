@@ -17,18 +17,15 @@ import services.CreateUserService;
 public class CreateUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		resp.setContentType("text/html");
 		String login = req.getParameter("login");
 		String password = req.getParameter("password");
 		String nom = req.getParameter("nom");
 		String prenom = req.getParameter("prenom");
 		PrintWriter out = resp.getWriter();
-		out.println(login);
-		out.println(password);
-		out.println(nom);
-		out.println(prenom);
 		try {
 			JSONObject res = CreateUserService.createUser(login, password, nom, prenom);
-			System.out.println();
+			out.println(res);
 		} catch (JSONException e) {
 			System.out.println("json error");
 		} catch (SQLException e) {
