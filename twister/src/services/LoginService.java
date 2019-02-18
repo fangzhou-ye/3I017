@@ -6,31 +6,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import exceptions.ServiceException;
-import tools.ConnectionTools;
+import tools.DBTools;
 import tools.UserTools;
 
 public class LoginService {
 
-	public static JSONObject login(String login, String password) throws JSONException {
-		// check if arguments null
+	public static JSONObject login(String login, String password) throws JSONException, SQLException {
 		if(login == null || password == null) {
 			return ServiceException.serviceRefused("wrong argument", 1);
 		}
-		// check if user exists
-		try {
-			if(!UserTools.loginExists(login)) {
-				return ServiceException.serviceRefused("unknown user", 10);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!UserTools.loginExists(login)) {
+			return ServiceException.serviceRefused("unknown user", 10);
 		}
-		// check if password correct
 		if(!UserTools.checkPassword(login, password)) {
 			return ServiceException.serviceRefused("wrong password", 100);
 		}
 		JSONObject res = new JSONObject();
-		String key = ConnectionTools.insertConnection(login, false);
+		String key = DBTools.insertConnection(login, false);
 		res.put("key", key);
 		return res;
 	}

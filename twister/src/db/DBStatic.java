@@ -1,4 +1,4 @@
-package Database;
+package db;
 
 public interface DBStatic {
 	

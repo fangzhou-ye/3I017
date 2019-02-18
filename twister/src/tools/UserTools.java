@@ -5,10 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import Database.Database;
+import db.Database;
 
 public class UserTools {
 	
@@ -20,9 +17,7 @@ public class UserTools {
 		stm.executeQuery(sql);
 		ResultSet rs = stm.getResultSet();
 		retour = rs.next();
-		rs.close();
-		stm.close();
-		conn.close();
+		DBTools.closeAll(rs, stm, conn);
 		return retour;
 	}
 	
@@ -37,13 +32,19 @@ public class UserTools {
 		}else {
 			res = false;
 		}
-		stm.close();
-		conn.close();
+		DBTools.closeAll(null, stm, conn);
 		return res;
 	}
 	
-	public static boolean checkPassword(String login, String password) {
-		return true;
+	public static boolean checkPassword(String login, String password) throws SQLException {
+		Connection conn = Database.getMySQLConnection();
+		String sql = String.format("SELECT password FROM User WHERE login = '%s';", login);
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(sql);
+		rs.next();
+		String correct_password = rs.getString("password");
+		DBTools.closeAll(rs, stm, conn);
+		return new String(password).equals(correct_password);
 	}
 	
 }
