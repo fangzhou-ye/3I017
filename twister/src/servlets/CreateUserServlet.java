@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,6 @@ import services.CreateUserService;
 public class CreateUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		/*
 		String login = req.getParameter("login");
 		String password = req.getParameter("password");
 		String nom = req.getParameter("nom");
@@ -26,11 +26,12 @@ public class CreateUserServlet extends HttpServlet {
 		out.println(password);
 		out.println(nom);
 		out.println(prenom);
-		*/
 		try {
 			JSONObject res = CreateUserService.createUser(login, password, nom, prenom);
-			out.println(res.toString());
+			System.out.println();
 		} catch (JSONException e) {
+			System.out.println("json error");
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

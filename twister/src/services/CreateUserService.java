@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.SQLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,12 +10,10 @@ import tools.UserTools;
 
 public class CreateUserService {
 	
-	public static JSONObject createUser(String login, String password, String nom, String prenom) throws JSONException {
-		// check if arguments null
+	public static JSONObject createUser(String login, String password, String nom, String prenom) throws JSONException, SQLException {
 		if(login == null || password == null || nom == null || prenom == null) {
-			return ServiceException.serviceRefused("argument null", -1);
+			return ServiceException.serviceRefused("wrong argument", -1);
 		}
-		// check if login already exists in database (not duplicate)
 		if(UserTools.loginExists(login)) {
 			return ServiceException.serviceRefused("login already exists", 1);
 		}
