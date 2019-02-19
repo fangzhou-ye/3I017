@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.CreateUserService;
+import services.AccountService;
 
 public class CreateUserServlet extends HttpServlet {
 
@@ -24,7 +24,7 @@ public class CreateUserServlet extends HttpServlet {
 		String prenom = req.getParameter("prenom");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = CreateUserService.createUser(login, password, nom, prenom);
+			JSONObject res = AccountService.createUser(login, password, nom, prenom);
 			out.println(res);
 		} catch (JSONException e) {
 			System.out.println("json error");

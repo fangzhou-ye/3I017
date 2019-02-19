@@ -9,6 +9,14 @@
   	<url-pattern>/user/login</url-pattern>
   </servlet-mapping>
   <servlet>
+  	<servlet-name>logout</servlet-name>
+  	<servlet-class>servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>logout</servlet-name>
+  	<url-pattern>/user/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
   	<servlet-name>createUser</servlet-name>
   	<servlet-class>servlets.CreateUserServlet</servlet-class>
   </servlet>
@@ -23,5 +31,13 @@
   <servlet-mapping>
   	<servlet-name>addFriend</servlet-name>
   	<url-pattern>/friend/add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>removeFriend</servlet-name>
+  	<servlet-class>servlets.RemoveFriendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>removeFriend</servlet-name>
+  	<url-pattern>/friend/remove</url-pattern>
   </servlet-mapping>
 </web-app>

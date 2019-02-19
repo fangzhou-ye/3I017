@@ -9,7 +9,7 @@ import exceptions.ServiceException;
 import tools.ConnectionTools;
 import tools.UserTools;
 
-public class LoginService {
+public class AuthService {
 
 	public static JSONObject login(String login, String password) throws JSONException, SQLException {
 		if(login == null || password == null) {
@@ -26,6 +26,22 @@ public class LoginService {
 			res.put(login, "connected");
 		}else {
 			res.put(login, "connection failed");
+		}
+		return res;
+	}
+	
+	public static JSONObject logout(String login) throws JSONException, SQLException {
+		if(login == null) {
+			return ServiceException.serviceRefused("wrong argument", 1);
+		}
+		if(!ConnectionTools.isConnected(login)) {
+			return ServiceException.serviceRefused("user not connected", 4);
+		}
+		JSONObject res = new JSONObject();
+		if(ConnectionTools.removeConnection(login)) {
+			res.put(login, "sign out");
+		}else {
+			res.put(login, "fail to sign out");
 		}
 		return res;
 	}

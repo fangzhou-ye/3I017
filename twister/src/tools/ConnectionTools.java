@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Random;
 
 import db.Database;
 
@@ -35,6 +34,15 @@ public class ConnectionTools {
 	public static boolean insertConnection(String login) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("INSERT INTO Connection (id_user) VALUES ('%d')", getIdUserFromLogin(login));
+		Statement stm = conn.createStatement();
+		boolean res = (stm.executeUpdate(sql) == 1);
+		closeAll(null, stm, conn);
+		return res;
+	}
+	
+	public static boolean removeConnection(String login) throws SQLException {
+		Connection conn = Database.getMySQLConnection();
+		String sql = String.format("DELETE FROM Connection WHERE id_user = %d;", getIdUserFromLogin(login));
 		Statement stm = conn.createStatement();
 		boolean res = (stm.executeUpdate(sql) == 1);
 		closeAll(null, stm, conn);

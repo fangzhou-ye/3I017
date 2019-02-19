@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.LoginService;
+import services.AuthService;
 
 public class LoginServlet extends HttpServlet {
 
@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 		String password = req.getParameter("password");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = LoginService.login(login, password);
+			JSONObject res = AuthService.login(login, password);
 			out.println(res);
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block

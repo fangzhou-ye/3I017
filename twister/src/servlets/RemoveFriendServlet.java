@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import services.FriendService;
 
-public class AddFriendServlet extends HttpServlet {
+public class RemoveFriendServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
@@ -22,7 +22,7 @@ public class AddFriendServlet extends HttpServlet {
 		String friend = req.getParameter("friend");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = FriendService.addFriend(login, friend);
+			JSONObject res = FriendService.removeFriend(login, friend);
 			out.println(res);
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block

@@ -39,6 +39,21 @@ public class FriendTools {
 		return res;
 	}
 	
+	public static boolean removeFriend(String login, String friend) throws SQLException {
+		int id_login = ConnectionTools.getIdUserFromLogin(login);
+		int id_friend = ConnectionTools.getIdUserFromLogin(friend);
+		Connection conn = Database.getMySQLConnection();
+		String sql = String.format(
+				"DELETE FROM Friendship\n" + 
+				"WHERE id_user1 = %d AND id_user2 = %d;\n" + 
+				"DELETE FROM Friendship\n" + 
+				"WHERE id_user1 = %d AND id_user2 = %d;", id_login, id_friend, id_friend, id_login);
+		Statement stm = conn.createStatement();
+		boolean res = (stm.executeUpdate(sql) == 1);
+		ConnectionTools.closeAll(null, stm, conn);
+		return res;
+	}
+	
 	public static void listFriends(String login) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
 		int id_login = ConnectionTools.getIdUserFromLogin(login);

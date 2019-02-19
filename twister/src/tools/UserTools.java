@@ -14,8 +14,7 @@ public class UserTools {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT * FROM User WHERE login = '%s';", login);
 		Statement stm = conn.createStatement();
-		stm.executeQuery(sql);
-		ResultSet rs = stm.getResultSet();
+		ResultSet rs = stm.executeQuery(sql);
 		retour = rs.next();
 		ConnectionTools.closeAll(rs, stm, conn);
 		return retour;
