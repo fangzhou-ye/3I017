@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import exceptions.ServiceException;
 import tools.ConnectionTools;
 import tools.FriendTools;
+import tools.UserTools;
 
 public class FriendService {
 
@@ -23,6 +24,9 @@ public class FriendService {
 		}
 		if(FriendTools.isFriend(login, friend)) {
 			return ServiceException.serviceRefused("already friends", 5);
+		}
+		if(!UserTools.loginExists(friend)) {
+			return ServiceException.serviceRefused("friend not in database", 6);
 		}
 		JSONObject res = new JSONObject();
 		if(FriendTools.addFriend(login, friend)) {
