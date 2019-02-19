@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import exceptions.ServiceException;
-import tools.DBTools;
+import tools.ConnectionTools;
 import tools.UserTools;
 
 public class LoginService {
@@ -22,8 +22,11 @@ public class LoginService {
 			return ServiceException.serviceRefused("wrong password", 100);
 		}
 		JSONObject res = new JSONObject();
-		String key = DBTools.insertConnection(login, false);
-		res.put("key", key);
+		if(ConnectionTools.insertConnection(login)) {
+			res.put(login, "connected");
+		}else {
+			res.put(login, "connection failed");
+		}
 		return res;
 	}
 	

@@ -17,7 +17,7 @@ public class UserTools {
 		stm.executeQuery(sql);
 		ResultSet rs = stm.getResultSet();
 		retour = rs.next();
-		DBTools.closeAll(rs, stm, conn);
+		ConnectionTools.closeAll(rs, stm, conn);
 		return retour;
 	}
 	
@@ -27,12 +27,8 @@ public class UserTools {
 		String sql = String.format("INSERT INTO User (login, password, nom, prenom) VALUES\n" + 
 				"('%s', '%s', '%s', '%s');", login, password, nom, prenom);
 		Statement stm = conn.createStatement();
-		if(stm.executeUpdate(sql) == 1) {
-			res = true;
-		}else {
-			res = false;
-		}
-		DBTools.closeAll(null, stm, conn);
+		res = (stm.executeUpdate(sql) == 1);
+		ConnectionTools.closeAll(null, stm, conn);
 		return res;
 	}
 	
@@ -43,7 +39,7 @@ public class UserTools {
 		ResultSet rs = stm.executeQuery(sql);
 		rs.next();
 		String correct_password = rs.getString("password");
-		DBTools.closeAll(rs, stm, conn);
+		ConnectionTools.closeAll(rs, stm, conn);
 		return new String(password).equals(correct_password);
 	}
 	

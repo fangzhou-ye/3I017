@@ -53,7 +53,7 @@ public class Database {
 		Connection conn = null;
 		try {
 			Class.forName(DBStatic.JDBC_DRIVER);
-			conn = DriverManager.getConnection(DBStatic.DB_URL2, DBStatic.USER, DBStatic.PASS);
+			conn = DriverManager.getConnection(DBStatic.DB_URL1, DBStatic.USER, DBStatic.PASS);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

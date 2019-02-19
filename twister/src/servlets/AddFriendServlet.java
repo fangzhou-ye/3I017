@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.LoginService;
+import services.AddFriendService;
 
-public class LoginServlet extends HttpServlet {
+public class AddFriendServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
 		String login = req.getParameter("login");
-		String password = req.getParameter("password");
+		String friend = req.getParameter("friend");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = LoginService.login(login, password);
+			JSONObject res = AddFriendService.addFriend(login, friend);
 			out.println(res);
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block

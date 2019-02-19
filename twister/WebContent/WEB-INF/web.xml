@@ -9,11 +9,19 @@
   	<url-pattern>/user/login</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>create</servlet-name>
+  	<servlet-name>createUser</servlet-name>
   	<servlet-class>servlets.CreateUserServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>create</servlet-name>
+  	<servlet-name>createUser</servlet-name>
   	<url-pattern>/user/create</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>addFriend</servlet-name>
+  	<servlet-class>servlets.AddFriendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>addFriend</servlet-name>
+  	<url-pattern>/friend/add</url-pattern>
   </servlet-mapping>
 </web-app>
