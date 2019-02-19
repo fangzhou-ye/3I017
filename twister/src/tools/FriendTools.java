@@ -32,8 +32,7 @@ public class FriendTools {
 		int id_login = ConnectionTools.getIdUserFromLogin(login);
 		int id_friend = ConnectionTools.getIdUserFromLogin(friend);
 		Connection conn = Database.getMySQLConnection();
-		String sql = String.format("INSERT INTO Friendship (id_user1, id_user2) VALUES (%d, %d);",
-															id_login, id_friend);
+		String sql = String.format("INSERT INTO Friendship (id_user1, id_user2) VALUES (%d, %d);", id_login, id_friend);
 		Statement stm = conn.createStatement();
 		boolean res = (stm.executeUpdate(sql) == 1);
 		ConnectionTools.closeAll(null, stm, conn);
