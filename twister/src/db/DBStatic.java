@@ -1,6 +1,6 @@
 package db;
 
-public interface DBStatic {
+public class DBStatic {
 	
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
 	// port 8889 used on Mac OS
