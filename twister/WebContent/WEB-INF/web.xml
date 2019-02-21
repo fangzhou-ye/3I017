@@ -40,4 +40,12 @@
   	<servlet-name>removeFriend</servlet-name>
   	<url-pattern>/friend/remove</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>addMessage</servlet-name>
+  	<servlet-class>servlets.AddMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>addMessage</servlet-name>
+  	<url-pattern>/user/send</url-pattern>
+  </servlet-mapping>
 </web-app>
