@@ -61,12 +61,15 @@ public class ConnectionTools {
 	}
 	
 	public static void closeAll(ResultSet rs, Statement stm, Connection conn) throws SQLException {
-		if(rs != null)
+		if(rs != null) {
 			rs.close();
-		if(stm != null)
+		}
+		if(stm != null) {
 			stm.close();
-		if(conn != null)
+		}
+		if(conn != null) {
 			conn.close();
+		}
 	}
 	
 }

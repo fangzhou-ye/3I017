@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import services.FriendService;
 
+@SuppressWarnings("serial")
 public class RemoveFriendServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

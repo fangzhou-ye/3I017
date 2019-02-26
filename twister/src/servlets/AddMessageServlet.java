@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import services.MessageService;
 
+@SuppressWarnings("serial")
 public class AddMessageServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -5,56 +5,54 @@ import java.sql.SQLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exceptions.ServiceException;
+import tools.ServiceTools;
 import tools.ConnectionTools;
-import tools.FriendTools;
+import tools.FollowTools;
 import tools.UserTools;
 
 public class FriendService {
 
 	public static JSONObject addFriend(String login, String friend) throws JSONException, SQLException {
 		if(login == null || friend == null) {
-			return ServiceException.serviceRefused("wrong argument", -1);
+			return ServiceTools.serviceRefused("wrong argument", -1);
 		}
 		if(new String(login).equals(friend)) {
-			return ServiceException.serviceRefused("friend can not be yourself", 3);
+			return ServiceTools.serviceRefused("friend can not be yourself", 3);
 		}
 		if(!ConnectionTools.isConnected(login)) {
-			return ServiceException.serviceRefused("user not connected", 4);
+			return ServiceTools.serviceRefused("user not connected", 4);
 		}
-		if(FriendTools.isFriend(login, friend)) {
-			return ServiceException.serviceRefused("already friends", 5);
+		if(FollowTools.isFollowing(login, friend)) {
+			return ServiceTools.serviceRefused("already following", 5);
 		}
 		if(!UserTools.loginExists(friend)) {
-			return ServiceException.serviceRefused("friend not in database", 6);
+			return ServiceTools.serviceRefused("friend not in database", 6);
 		}
-		JSONObject res = new JSONObject();
-		if(FriendTools.addFriend(login, friend)) {
-			res.put(login, "be friend with " + friend);
+		if(FollowTools.follow(login, friend)) {
+			return ServiceTools.serviceAccepted(login, "be friend with " + friend);
 		}else {
-			res.put(login, "fail to add " + friend);
+			return ServiceTools.serviceRefused(login + "fail to add " + friend, 7);
 		}
-		return res;
 	}
 
 	public static JSONObject removeFriend(String login, String friend) throws JSONException, SQLException {
 		if(login == null || friend == null) {
-			return ServiceException.serviceRefused("wrong argument", -1);
+			return ServiceTools.serviceRefused("wrong argument", -1);
 		}
 		if(new String(login).equals(friend)) {
-			return ServiceException.serviceRefused("friend can not be yourself", 3);
+			return ServiceTools.serviceRefused("can not follow yourself", 3);
 		}
 		if(!ConnectionTools.isConnected(login)) {
-			return ServiceException.serviceRefused("user not connected", 4);
+			return ServiceTools.serviceRefused("user not connected", 4);
 		}
-		if(!FriendTools.isFriend(login, friend)) {
-			return ServiceException.serviceRefused(login + " not friend with " + friend, 6);
+		if(!FollowTools.isFollowing(login, friend)) {
+			return ServiceTools.serviceRefused(login + " is not following " + friend, 6);
 		}
 		JSONObject res = new JSONObject();
-		if(FriendTools.removeFriend(login, friend)) {
-			res.put(login, "remove friend" + friend);
+		if(FollowTools.unfollow(login, friend)) {
+			res.put(login, "unfollow" + friend);
 		}else {
-			res.put(login, "fail to remove " + friend);
+			res.put(login, "fail to unfollow " + friend);
 		}
 		return res;
 	}

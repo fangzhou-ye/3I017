@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import services.AccountService;
 
+@SuppressWarnings("serial")
 public class CreateUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
