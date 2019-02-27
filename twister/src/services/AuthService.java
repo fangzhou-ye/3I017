@@ -11,32 +11,35 @@ import tools.UserTools;
 
 public class AuthService {
 
-	public static JSONObject login(String login, String password) throws JSONException, SQLException {
-		if(login == null || password == null) {
+	public static JSONObject signIn(String email, String password) throws JSONException, SQLException {
+		if(email == null || password == null) {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}
-		if(!UserTools.loginExists(login)) {
+		if(ConnectionTools.isConnected(email)) {
+			return ServiceTools.serviceRefused("already connected", 11);
+		}
+		if(!UserTools.emailExists(email)) {
 			return ServiceTools.serviceRefused("unknown user", 10);
 		}
-		if(!UserTools.checkPassword(login, password)) {
+		if(!UserTools.checkPassword(email, password)) {
 			return ServiceTools.serviceRefused("wrong password", 100);
 		}
-		if(ConnectionTools.insertConnection(login)) {
-			return ServiceTools.serviceAccepted(login, "connected");
+		if(ConnectionTools.insertConnection(email)) {
+			return ServiceTools.serviceAccepted(email, "connected");
 		}else {
-			return ServiceTools.serviceRefused(login + ": connection fail", 1000);
+			return ServiceTools.serviceRefused(email + ": connection fail", 1000);
 		}
 	}
 	
-	public static JSONObject logout(String login) throws JSONException, SQLException {
-		if(login == null) {
+	public static JSONObject signOut(String email) throws JSONException, SQLException {
+		if(email == null) {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}
-		if(!ConnectionTools.isConnected(login)) {
+		if(!ConnectionTools.isConnected(email)) {
 			return ServiceTools.serviceRefused("user not connected", 4);
 		}
-		if(ConnectionTools.removeConnection(login)) {
-			return ServiceTools.serviceAccepted(login, "sign out");
+		if(ConnectionTools.removeConnection(email)) {
+			return ServiceTools.serviceAccepted(email, "sign out");
 		}else {
 			return ServiceTools.serviceRefused("sign out fails", 10000);
 		}

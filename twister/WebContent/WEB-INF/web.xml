@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <servlet>
-  	<servlet-name>login</servlet-name>
-  	<servlet-class>servlets.LoginServlet</servlet-class>
+  	<servlet-name>signIn</servlet-name>
+  	<servlet-class>servlets.SignInServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>login</servlet-name>
-  	<url-pattern>/user/login</url-pattern>
+  	<servlet-name>signIn</servlet-name>
+  	<url-pattern>/user/signin</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>logout</servlet-name>
-  	<servlet-class>servlets.LogoutServlet</servlet-class>
+  	<servlet-name>signOut</servlet-name>
+  	<servlet-class>servlets.SignOutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>logout</servlet-name>
-  	<url-pattern>/user/logout</url-pattern>
+  	<servlet-name>signOut</servlet-name>
+  	<url-pattern>/user/signout</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>createUser</servlet-name>
-  	<servlet-class>servlets.CreateUserServlet</servlet-class>
+  	<servlet-name>signUp</servlet-name>
+  	<servlet-class>servlets.SignUpServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>createUser</servlet-name>
-  	<url-pattern>/user/create</url-pattern>
+  	<servlet-name>signUp</servlet-name>
+  	<url-pattern>/user/signup</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>addFriend</servlet-name>
-  	<servlet-class>servlets.AddFriendServlet</servlet-class>
+  	<servlet-name>followFriend</servlet-name>
+  	<servlet-class>servlets.FollowFriendServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>addFriend</servlet-name>
-  	<url-pattern>/friend/add</url-pattern>
+  	<servlet-name>followFriend</servlet-name>
+  	<url-pattern>/friend/follow</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>removeFriend</servlet-name>
-  	<servlet-class>servlets.RemoveFriendServlet</servlet-class>
+  	<servlet-name>unfollowFriend</servlet-name>
+  	<servlet-class>servlets.UnfollowFriendServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>removeFriend</servlet-name>
-  	<url-pattern>/friend/remove</url-pattern>
+  	<servlet-name>unfollowFriend</servlet-name>
+  	<url-pattern>/friend/unfollow</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>addMessage</servlet-name>
-  	<servlet-class>servlets.AddMessageServlet</servlet-class>
+  	<servlet-name>postMessage</servlet-name>
+  	<servlet-class>servlets.PostMessageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>addMessage</servlet-name>
-  	<url-pattern>/user/send</url-pattern>
+  	<servlet-name>postMessage</servlet-name>
+  	<url-pattern>/message/post</url-pattern>
   </servlet-mapping>
 </web-app>

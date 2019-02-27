@@ -11,13 +11,12 @@ import db.Database;
 
 public class MessageTools {
 	
-	public static boolean addMessage(int id, String from, String to, String text) {
+	public static boolean postMessage(int id, String email, String content) {
 		MongoCollection<Document> col = Database.getMongoCollection(DBStatic.MONGO_COL_MESSAGE);
 		Document query = new Document();
 		query.append("id_message", id);
-		query.append("from_id_user", Integer.parseInt(from));
-		query.append("to_id_user", Integer.parseInt(to));
-		query.append("text", text);
+		query.append("email", email);
+		query.append("content", content);
 		query.append("date", new Date());
 		col.insertOne(query);
 		return !query.isEmpty();

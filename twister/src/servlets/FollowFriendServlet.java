@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.AuthService;
+import services.Follow;
 
 @SuppressWarnings("serial")
-public class LogoutServlet extends HttpServlet {
+public class FollowFriendServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		String login = req.getParameter("login");
-		PrintWriter out = resp.getWriter(); 
+		String login = req.getParameter("email");
+		String friend = req.getParameter("friend");
+		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = AuthService.logout(login);
+			JSONObject res = Follow.follow(login, friend);
 			out.println(res);
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block

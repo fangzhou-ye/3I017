@@ -8,26 +8,20 @@ import org.json.JSONObject;
 import tools.ServiceTools;
 import tools.ConnectionTools;
 import tools.MessageTools;
-import tools.UserTools;
 
 public class MessageService {
-	
-	private static int idMessage = 1;
 
-	public static JSONObject addMessage(String from, String to, String text) throws JSONException, NumberFormatException, SQLException {
-		if(from == null || to == null) {
+	public static JSONObject postMessage(String idMessage, String email, String content) throws JSONException, SQLException {
+		if(email == null || content == null) {
 			return ServiceTools.serviceRefused("wrong argument", -1);
 		}
-		if(!ConnectionTools.isConnected(ConnectionTools.getLoginFromIdUser(Integer.parseInt(from)))) {
+		if(!ConnectionTools.isConnected(email)) {
 			return ServiceTools.serviceRefused("user not connected", 4);
 		}
-		if(!UserTools.loginExists(ConnectionTools.getLoginFromIdUser(Integer.parseInt(to)))) {
-			return ServiceTools.serviceRefused("friend not in database", 6);
-		}
-		if(MessageTools.addMessage(idMessage++, from, to, text)) {
-			return ServiceTools.serviceAccepted(from + "->" + to, "message added");
+		if(MessageTools.postMessage(Integer.parseInt(idMessage), email, content)) {
+			return ServiceTools.serviceAccepted(email, "message posted");
 		}else {
-			return ServiceTools.serviceRefused(from + "fail to send to " + to, 7);
+			return ServiceTools.serviceRefused(email + " post failed", 7);
 		}
 	}
 	

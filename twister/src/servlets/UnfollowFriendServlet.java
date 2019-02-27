@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.FriendService;
+import services.Follow;
 
 @SuppressWarnings("serial")
-public class RemoveFriendServlet extends HttpServlet {
+public class UnfollowFriendServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		String login = req.getParameter("login");
+		String login = req.getParameter("email");
 		String friend = req.getParameter("friend");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = FriendService.removeFriend(login, friend);
+			JSONObject res = Follow.unfollow(login, friend);
 			out.println(res);
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block

@@ -15,15 +15,15 @@ import org.json.JSONObject;
 import services.MessageService;
 
 @SuppressWarnings("serial")
-public class AddMessageServlet extends HttpServlet {
+public class PostMessageServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String from = req.getParameter("from");
-		String to = req.getParameter("to");
-		String text = req.getParameter("text");
+		String idMessage = req.getParameter("idmessage");
+		String email = req.getParameter("email");
+		String content = req.getParameter("content");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = MessageService.addMessage(from, to, text);
+			JSONObject res = MessageService.postMessage(idMessage, email, content);
 			out.println(res);
 		} catch (NumberFormatException | JSONException | SQLException e) {
 			// TODO Auto-generated catch block

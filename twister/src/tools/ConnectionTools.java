@@ -9,9 +9,10 @@ import db.Database;
 
 public class ConnectionTools {
 	
-	public static int getIdUserFromLogin(String login) throws SQLException {
+	public static int getIdUserFromEmail(String email) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
-		String sql = String.format("SELECT id_user FROM User WHERE login = '%s';", login);
+		String sql = String.format("SELECT id_user FROM User WHERE email = '%s';", email);
+		System.out.println(sql);
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		rs.next();
@@ -20,39 +21,39 @@ public class ConnectionTools {
 		return id;
 	}
 	
-	public static String getLoginFromIdUser(int id_user) throws SQLException {
+	public static String getEmailFromIdUser(int id_user) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
-		String sql = String.format("SELECT login FROM User WHERE id_user = %d;", id_user);
+		String sql = String.format("SELECT email FROM User WHERE id_user = %d;", id_user);
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		rs.next();
-		String login = rs.getString("login");
+		String login = rs.getString("email");
 		closeAll(rs, stm, conn);
 		return login;
 	}
 
-	public static boolean insertConnection(String login) throws SQLException {
+	public static boolean insertConnection(String email) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
-		String sql = String.format("INSERT INTO Connection (id_user) VALUES ('%d')", getIdUserFromLogin(login));
+		String sql = String.format("INSERT INTO Connection (id_user) VALUES ('%d')", getIdUserFromEmail(email));
 		Statement stm = conn.createStatement();
 		boolean res = (stm.executeUpdate(sql) == 1);
 		closeAll(null, stm, conn);
 		return res;
 	}
 	
-	public static boolean removeConnection(String login) throws SQLException {
+	public static boolean removeConnection(String email) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
-		String sql = String.format("DELETE FROM Connection WHERE id_user = %d;", getIdUserFromLogin(login));
+		String sql = String.format("DELETE FROM Connection WHERE id_user = %d;", getIdUserFromEmail(email));
 		Statement stm = conn.createStatement();
 		boolean res = (stm.executeUpdate(sql) == 1);
 		closeAll(null, stm, conn);
 		return res;
 	}
 	
-	public static boolean isConnected(String login) throws SQLException {
+	public static boolean isConnected(String email) throws SQLException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT * FROM User U, Connection C "
-				+ "WHERE U.login = '%s' AND U.id_user = C.id_user;", login);
+				+ "WHERE U.email = '%s' AND U.id_user = C.id_user;", email);
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		boolean res = rs.next();
@@ -69,6 +70,15 @@ public class ConnectionTools {
 		}
 		if(conn != null) {
 			conn.close();
+		}
+	}
+	
+	public static void main(String[] args) {
+		try {
+			System.out.println(getIdUserFromEmail("fangzhou.ye@yahoo.com"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

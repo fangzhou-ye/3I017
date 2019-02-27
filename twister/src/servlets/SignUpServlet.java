@@ -15,17 +15,18 @@ import org.json.JSONObject;
 import services.AccountService;
 
 @SuppressWarnings("serial")
-public class CreateUserServlet extends HttpServlet {
+public class SignUpServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		resp.setContentType("text/html");
-		String login = req.getParameter("login");
+		String email = req.getParameter("email");
+		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String nom = req.getParameter("nom");
 		String prenom = req.getParameter("prenom");
 		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = AccountService.createUser(login, password, nom, prenom);
+			JSONObject res = AccountService.signUp(email, username, password, nom, prenom);
 			out.println(res);
 		} catch (JSONException e) {
 			System.out.println("json error");
