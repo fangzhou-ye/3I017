@@ -10,7 +10,7 @@ import tools.UserTools;
 
 public class AccountService {
 	
-	public static JSONObject signUp(String email, String username, String password, String nom, String prenom) throws JSONException, SQLException {
+	public static JSONObject signUp(String email, String username, String password, String nom, String prenom) throws JSONException, SQLException, ClassNotFoundException {
 		if(username == null || password == null || nom == null || prenom == null) {
 			return ServiceTools.serviceRefused("wrong argument", -1);
 		}

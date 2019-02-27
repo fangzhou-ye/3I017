@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Context>
+<Resource name="jdbc/db" 
+          type="javax.sql.DataSource" 
+          maxActive="100"
+          maxIdle="30"
+          maxWait="1000" 
+          url="jdbc:mysql://localhost:8889/twister_YE_ZHANG" 
+          driverClassName="com.mysql.jdbc.Driver" 
+          username="root" 
+          password="root"/>
+</Context>

@@ -28,6 +28,9 @@ public class UnfollowFriendServlet extends HttpServlet {
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

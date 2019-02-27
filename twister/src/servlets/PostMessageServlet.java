@@ -28,6 +28,9 @@ public class PostMessageServlet extends HttpServlet {
 		} catch (NumberFormatException | JSONException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

@@ -12,7 +12,7 @@ import tools.UserTools;
 
 public class Follow {
 
-	public static JSONObject follow(String email, String friend_email) throws JSONException, SQLException {
+	public static JSONObject follow(String email, String friend_email) throws JSONException, SQLException, ClassNotFoundException {
 		if(email == null || friend_email == null) {
 			return ServiceTools.serviceRefused("wrong argument", -1);
 		}
@@ -35,7 +35,7 @@ public class Follow {
 		}
 	}
 
-	public static JSONObject unfollow(String email, String friend_email) throws JSONException, SQLException {
+	public static JSONObject unfollow(String email, String friend_email) throws JSONException, SQLException, ClassNotFoundException {
 		if(email == null || friend_email == null) {
 			return ServiceTools.serviceRefused("wrong argument", -1);
 		}

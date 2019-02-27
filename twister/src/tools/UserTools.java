@@ -11,7 +11,7 @@ import db.Database;
 
 public class UserTools {
 	
-	public static boolean emailExists(String email) throws SQLException {
+	public static boolean emailExists(String email) throws SQLException, ClassNotFoundException {
 		boolean retour;
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT * FROM User WHERE email = '%s';", email);
@@ -22,7 +22,7 @@ public class UserTools {
 		return retour;
 	}
 	
-	public static boolean signUp(String email, String user, String password, String nom, String prenom) throws SQLException {
+	public static boolean signUp(String email, String user, String password, String nom, String prenom) throws SQLException, ClassNotFoundException {
 		boolean res;
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("INSERT INTO User (email, username, password, nom, prenom, join_date) VALUES\n" + 
@@ -33,7 +33,7 @@ public class UserTools {
 		return res;
 	}
 	
-	public static boolean checkPassword(String email, String password) throws SQLException {
+	public static boolean checkPassword(String email, String password) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT password FROM User WHERE email = '%s';", email);
 		Statement stm = conn.createStatement();

@@ -9,7 +9,7 @@ import db.Database;
 
 public class ConnectionTools {
 	
-	public static int getIdUserFromEmail(String email) throws SQLException {
+	public static int getIdUserFromEmail(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT id_user FROM User WHERE email = '%s';", email);
 		System.out.println(sql);
@@ -21,7 +21,7 @@ public class ConnectionTools {
 		return id;
 	}
 	
-	public static String getEmailFromIdUser(int id_user) throws SQLException {
+	public static String getEmailFromIdUser(int id_user) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT email FROM User WHERE id_user = %d;", id_user);
 		Statement stm = conn.createStatement();
@@ -32,7 +32,7 @@ public class ConnectionTools {
 		return login;
 	}
 
-	public static boolean insertConnection(String email) throws SQLException {
+	public static boolean insertConnection(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("INSERT INTO Connection (id_user) VALUES ('%d')", getIdUserFromEmail(email));
 		Statement stm = conn.createStatement();
@@ -41,7 +41,7 @@ public class ConnectionTools {
 		return res;
 	}
 	
-	public static boolean removeConnection(String email) throws SQLException {
+	public static boolean removeConnection(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("DELETE FROM Connection WHERE id_user = %d;", getIdUserFromEmail(email));
 		Statement stm = conn.createStatement();
@@ -50,7 +50,7 @@ public class ConnectionTools {
 		return res;
 	}
 	
-	public static boolean isConnected(String email) throws SQLException {
+	public static boolean isConnected(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT * FROM User U, Connection C "
 				+ "WHERE U.email = '%s' AND U.id_user = C.id_user;", email);
@@ -70,15 +70,6 @@ public class ConnectionTools {
 		}
 		if(conn != null) {
 			conn.close();
-		}
-	}
-	
-	public static void main(String[] args) {
-		try {
-			System.out.println(getIdUserFromEmail("fangzhou.ye@yahoo.com"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	

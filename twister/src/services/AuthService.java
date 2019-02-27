@@ -11,7 +11,7 @@ import tools.UserTools;
 
 public class AuthService {
 
-	public static JSONObject signIn(String email, String password) throws JSONException, SQLException {
+	public static JSONObject signIn(String email, String password) throws JSONException, SQLException, ClassNotFoundException {
 		if(email == null || password == null) {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}
@@ -31,7 +31,7 @@ public class AuthService {
 		}
 	}
 	
-	public static JSONObject signOut(String email) throws JSONException, SQLException {
+	public static JSONObject signOut(String email) throws JSONException, SQLException, ClassNotFoundException {
 		if(email == null) {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}

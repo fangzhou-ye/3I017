@@ -3,28 +3,29 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.bson.Document;
 
-import services.AuthService;
+import services.MessageService;
 
 @SuppressWarnings("serial")
-public class SignOutServlet extends HttpServlet {
+public class SearchMessageServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/html");
 		String email = req.getParameter("email");
-		PrintWriter out = resp.getWriter(); 
+		String query = req.getParameter("query");
+		PrintWriter out = resp.getWriter();
 		try {
-			JSONObject res = AuthService.signOut(email);
-			out.println(res);
-		} catch (JSONException | SQLException e) {
+			List<Document> res = MessageService.searchMessage(email, query);
+			out.println(Arrays.toString(res.toArray()));
+		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

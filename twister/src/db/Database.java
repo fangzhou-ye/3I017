@@ -23,7 +23,7 @@ public class Database {
 	
 	public Database(String jndiname) throws SQLException {
 		try{
-			dataSource = (DataSource) new InitialContext().lookup("java:comp/env/" + jndiname);
+			dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/db");
 		}catch(NamingException e){
 			throw new SQLException(jndiname + " is missing in JDNI! : " + e.getMessage());
 		}
@@ -45,19 +45,20 @@ public class Database {
 		return dataSource.getConnection();
 	}
 	
-	public static Connection getMySQLConnection() {
-		/*
-		if (DBStatic.mysql_pooling == false){
+	public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
+		
+		if (DBStatic.mysql_pooling == true){
 			Class.forName("com.mysql.jdbc.Driver");
-			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.mysql_host + "/" + 
-					DBStatic.mysql_db, DBStatic.mysql_username, DBStatic.mysql_password));
+			return(DriverManager.getConnection(DBStatic.DB_URL1, DBStatic.USER, DBStatic.PASS));
 		}
 		else{
 			if (database == null){
 				database = new Database("jdbc/db");
 			}
-			return (database.getConnection());
-		}*/
+			return database.getConnection();
+		}
+		
+		/*
 		Connection conn = null;
 		try {
 			Class.forName(DBStatic.JDBC_DRIVER);
@@ -70,6 +71,7 @@ public class Database {
 			e.printStackTrace();
 		}
 		return conn;
+		*/
 	}
 	
 	public static MongoCollection<Document> getMongoCollection(String collection) {

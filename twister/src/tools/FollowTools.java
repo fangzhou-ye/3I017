@@ -12,7 +12,7 @@ import db.Database;
 
 public class FollowTools {
 	
-	public static boolean isFollowing(String email, String followed) throws SQLException {
+	public static boolean isFollowing(String email, String followed) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		int id_follower = ConnectionTools.getIdUserFromEmail(email);
 		int id_followed = ConnectionTools.getIdUserFromEmail(followed);
@@ -25,7 +25,7 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static boolean follow(String email, String followed) throws SQLException {
+	public static boolean follow(String email, String followed) throws SQLException, ClassNotFoundException {
 		int id_follower = ConnectionTools.getIdUserFromEmail(email);
 		int id_followed = ConnectionTools.getIdUserFromEmail(followed);
 		Connection conn = Database.getMySQLConnection();
@@ -38,7 +38,7 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static boolean unfollow(String email, String followed) throws SQLException {
+	public static boolean unfollow(String email, String followed) throws SQLException, ClassNotFoundException {
 		int id_follower = ConnectionTools.getIdUserFromEmail(email);
 		int id_followed = ConnectionTools.getIdUserFromEmail(followed);
 		Connection conn = Database.getMySQLConnection();
@@ -51,7 +51,7 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static JSONObject getAllFollowers(String email) throws SQLException, JSONException {
+	public static JSONObject getAllFollowers(String email) throws SQLException, JSONException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format(
 				"SELECT *\n" + 
@@ -72,7 +72,7 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static JSONObject getAllFollowed(String email) throws SQLException, JSONException {
+	public static JSONObject getAllFollowed(String email) throws SQLException, JSONException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format(
 				"SELECT *\n" + 
@@ -93,9 +93,9 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JSONException, ClassNotFoundException {
 		try {
-			System.out.println(unfollow("user1@yahoo.com", "user2@yahoo.com"));
+			System.out.println(getAllFollowers("weiqin.huang@etu.upmc.fr"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
