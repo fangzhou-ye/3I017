@@ -16,5 +16,5 @@ public class DBStatic {
 	
 	public static final String MONGO_COL_MESSAGE = "Message";
 	
-	public static final boolean mysql_pooling = false;
+	public static final boolean mysql_pooling = true;
 }

@@ -47,7 +47,7 @@ public class Database {
 	
 	public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
 		
-		if (DBStatic.mysql_pooling == true){
+		if (DBStatic.mysql_pooling == false){
 			Class.forName("com.mysql.jdbc.Driver");
 			return(DriverManager.getConnection(DBStatic.DB_URL1, DBStatic.USER, DBStatic.PASS));
 		}
