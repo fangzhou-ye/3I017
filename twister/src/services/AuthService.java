@@ -16,18 +16,18 @@ public class AuthService {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}
 		if(ConnectionTools.isConnected(email)) {
-			return ServiceTools.serviceRefused("already connected", 11);
+			return ServiceTools.serviceRefused("already connected", 2);
 		}
 		if(!UserTools.emailExists(email)) {
-			return ServiceTools.serviceRefused("unknown user", 10);
+			return ServiceTools.serviceRefused("unknown user", 3);
 		}
 		if(!UserTools.checkPassword(email, password)) {
-			return ServiceTools.serviceRefused("wrong password", 100);
+			return ServiceTools.serviceRefused("wrong password", 4);
 		}
 		if(ConnectionTools.insertConnection(email)) {
-			return ServiceTools.serviceAccepted(email, "connected");
+			return ServiceTools.serviceAccepted(email, "connected", 0);
 		}else {
-			return ServiceTools.serviceRefused(email + ": connection fail", 1000);
+			return ServiceTools.serviceRefused(email + ": connection fail", -1);
 		}
 	}
 	
@@ -36,12 +36,12 @@ public class AuthService {
 			return ServiceTools.serviceRefused("wrong argument", 1);
 		}
 		if(!ConnectionTools.isConnected(email)) {
-			return ServiceTools.serviceRefused("user not connected", 4);
+			return ServiceTools.serviceRefused("user not connected", 5);
 		}
 		if(ConnectionTools.removeConnection(email)) {
-			return ServiceTools.serviceAccepted(email, "sign out");
+			return ServiceTools.serviceAccepted(email, "sign out", 0);
 		}else {
-			return ServiceTools.serviceRefused("sign out fails", 10000);
+			return ServiceTools.serviceRefused("sign out fails", -1);
 		}
 	}
 	

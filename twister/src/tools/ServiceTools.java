@@ -12,8 +12,9 @@ public class ServiceTools {
 		return obj;
 	}
 	
-	public static JSONObject serviceAccepted(String res, String msg) throws JSONException {
+	public static JSONObject serviceAccepted(String res, String msg, int code) throws JSONException {
 		JSONObject obj = new JSONObject();
+		obj.put("code", code);
 		obj.put(res, msg);
 		return obj;
 	}
