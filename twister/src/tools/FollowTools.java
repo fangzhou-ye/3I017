@@ -93,13 +93,4 @@ public class FollowTools {
 		return res;
 	}
 	
-	public static void main(String[] args) throws JSONException, ClassNotFoundException {
-		try {
-			System.out.println(getAllFollowers("weiqin.huang@etu.upmc.fr"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }

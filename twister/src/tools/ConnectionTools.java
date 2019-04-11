@@ -31,6 +31,18 @@ public class ConnectionTools {
 		closeAll(rs, stm, conn);
 		return login;
 	}
+	
+	public static String getUsernameFromEmail(String email) throws ClassNotFoundException, SQLException {
+		Connection conn = Database.getMySQLConnection();
+		String sql = String.format("SELECT username FROM User WHERE email='%s';", email);
+		System.out.println(sql);
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery(sql);
+		rs.next();
+		String res = rs.getString("username");
+		closeAll(rs, stm, conn);
+		return res;
+	}
 
 	public static boolean insertConnection(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = Database.getMySQLConnection();

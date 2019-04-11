@@ -25,7 +25,14 @@ public class AuthService {
 			return ServiceTools.serviceRefused("wrong password", 4);
 		}
 		if(ConnectionTools.insertConnection(email)) {
-			return ServiceTools.serviceAccepted(email, "connected", 0);
+			//get username, listFollowers.... => JSONObject
+			String username = ConnectionTools.getUsernameFromEmail(email);
+			JSONObject res = new JSONObject();
+			res.put("code", 0);
+			res.put("message", "login success");
+			res.put("email", email);
+			res.put("username", username);
+			return res;
 		}else {
 			return ServiceTools.serviceRefused(email + ": connection fail", -1);
 		}
