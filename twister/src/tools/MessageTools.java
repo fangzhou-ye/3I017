@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -27,16 +30,20 @@ public class MessageTools {
 		return !query.isEmpty();
 	}
 	
-	public static List<Document> getAllMessage(String email) {
-		List<Document> res = new ArrayList<Document>();
+	public static JSONObject getAllMessages(String email) throws JSONException {
+		JSONObject res = new JSONObject();
+		JSONArray arr = new JSONArray();
 		MongoCollection<Document> col = Database.getMongoCollection(DBStatic.MONGO_COL_MESSAGE);
 		Document query = new Document();
 		query.append("email", email);
 		MongoCursor<Document> cursor = col.find(query).iterator();
 		while(cursor.hasNext()) {
-			Document obj = cursor.next();
-			res.add(obj);
+			Document msg = cursor.next();
+			arr.put(msg.getString("content"));
 		}
+		res.put("email", email);
+		res.put("nbMessages", arr.length());
+		res.put("messages", arr);
 		return res;
 	}
 	

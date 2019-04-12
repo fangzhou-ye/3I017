@@ -1,11 +1,6 @@
 package services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,15 +24,12 @@ public class MessageService {
 		}
 	}
 	
-	public static List<Document> searchMessage(String email, String query) throws SQLException, ClassNotFoundException{
-		if(query != "") {
-			// ToDo search by key word
-			return new ArrayList<Document>();
-		}
+	//
+	public static JSONObject searchMessage(String email) throws JSONException, ClassNotFoundException, SQLException {
 		if(ConnectionTools.isConnected(email)) {
-			return MessageTools.getAllMessage(email);
+			return MessageTools.getAllMessages(email);
 		}else {
-			return new ArrayList<Document>();
+			return new JSONObject();
 		}
 	}
 	
