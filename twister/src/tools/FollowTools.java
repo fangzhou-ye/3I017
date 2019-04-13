@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,10 +65,12 @@ public class FollowTools {
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		JSONObject res = new JSONObject();
-		int cpt = 1;
+		JSONArray arr = new JSONArray();
 		while(rs.next()) {
-			res.put("follower " + cpt++, rs.getString("email"));
+			arr.put(rs.getString("email"));
 		}
+		res.put("nbFollowers", arr.length());
+		res.put("followers", arr);
 		ConnectionTools.closeAll(rs, stm, conn);
 		return res;
 	}
@@ -85,12 +88,21 @@ public class FollowTools {
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		JSONObject res = new JSONObject();
-		int cpt = 1;
+		JSONArray arr = new JSONArray();
 		while(rs.next()) {
-			res.put("followed " + cpt++, rs.getString("email"));
+			//ToDo
+			arr.put(getAllFollowers(rs.getString("email")));
 		}
+		res.put("nbFriends", arr.length());
+		res.put("username", ConnectionTools.getUsernameFromEmail(email));
+		res.put("friends", arr);
 		ConnectionTools.closeAll(rs, stm, conn);
 		return res;
+	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, JSONException {
+		//System.out.println(getAllFollowed("fangzhou.ye@yahoo.com"));
+		System.out.println(getAllFollowers("fangzhou.ye@yahoo.com"));
 	}
 	
 }

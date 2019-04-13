@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import tools.ServiceTools;
 import tools.ConnectionTools;
 import tools.FollowTools;
+import tools.MessageTools;
 import tools.UserTools;
 
 public class Follow {
@@ -52,6 +53,14 @@ public class Follow {
 			return ServiceTools.serviceAccepted(email, friend_email, 0);
 		}else {
 			return ServiceTools.serviceRefused("fail to unfollow", -1);
+		}
+	}
+	
+	public static JSONObject listFollowed(String email) throws JSONException, ClassNotFoundException, SQLException {
+		if(ConnectionTools.isConnected(email)) {
+			return FollowTools.getAllFollowed(email);
+		}else {
+			return new JSONObject();
 		}
 	}
 	

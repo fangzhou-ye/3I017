@@ -24,7 +24,6 @@ public class MessageService {
 		}
 	}
 	
-	//
 	public static JSONObject searchMessage(String email) throws JSONException, ClassNotFoundException, SQLException {
 		if(ConnectionTools.isConnected(email)) {
 			return MessageTools.getAllMessages(email);

@@ -35,7 +35,6 @@ public class ConnectionTools {
 	public static String getUsernameFromEmail(String email) throws ClassNotFoundException, SQLException {
 		Connection conn = Database.getMySQLConnection();
 		String sql = String.format("SELECT username FROM User WHERE email='%s';", email);
-		System.out.println(sql);
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery(sql);
 		rs.next();

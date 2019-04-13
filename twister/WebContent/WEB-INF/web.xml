@@ -64,6 +64,14 @@
   	<servlet-name>searchMessage</servlet-name>
   	<url-pattern>/message/search</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>listFollowed</servlet-name>
+  	<servlet-class>servlets.ListFollowedServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>listFollowed</servlet-name>
+  	<url-pattern>/friend/followed</url-pattern>
+  </servlet-mapping>
   <resource-ref>
   	<description>DB Connection</description>
   	<res-ref-name>jdbc/db</res-ref-name>
