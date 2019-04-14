@@ -70,7 +70,8 @@ public class FollowTools {
 			arr.put(rs.getString("email"));
 		}
 		res.put("nbFollowers", arr.length());
-		res.put("followers", arr);
+		res.put("email", email);
+		res.put("username", ConnectionTools.getUsernameFromEmail(email));
 		ConnectionTools.closeAll(rs, stm, conn);
 		return res;
 	}
@@ -90,7 +91,6 @@ public class FollowTools {
 		JSONObject res = new JSONObject();
 		JSONArray arr = new JSONArray();
 		while(rs.next()) {
-			//ToDo
 			arr.put(getAllFollowers(rs.getString("email")));
 		}
 		res.put("nbFriends", arr.length());
@@ -98,11 +98,6 @@ public class FollowTools {
 		res.put("friends", arr);
 		ConnectionTools.closeAll(rs, stm, conn);
 		return res;
-	}
-	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, JSONException {
-		//System.out.println(getAllFollowed("fangzhou.ye@yahoo.com"));
-		System.out.println(getAllFollowers("fangzhou.ye@yahoo.com"));
 	}
 	
 }
