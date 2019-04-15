@@ -70,6 +70,7 @@ public class MessageTools {
 			msg.put("f_email", mail);
 			msg.put("f_username", ConnectionTools.getUsernameFromEmail(mail));
 			msg.put("f_content", infos.get("messages"));
+			msg.put("f_nbMessages", infos.getString("nbMessages"));
 			arr.put(msg);
 			if(mail == email) {
 				my_nb_msgs = infos.getString("nbMessages");
@@ -80,8 +81,6 @@ public class MessageTools {
 		res.put("email", email);
 		return res;
 	}
-	
-	
 	
 	public static void main(String[] args) throws ClassNotFoundException, JSONException, SQLException {
 		System.out.println(getAllMessages("fangzhou.ye@yahoo.com"));

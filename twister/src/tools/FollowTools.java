@@ -104,7 +104,7 @@ public class FollowTools {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, JSONException {
 		JSONArray res = (JSONArray) getAllFollowed("fangzhou.ye@yahoo.com").get("friends");
 		for(int i=0; i<res.length(); i++) {
-			System.out.println(res.getJSONObject(i).getString("email"));
+			System.out.println(res.getJSONObject(i));
 		}
 	}
 	
