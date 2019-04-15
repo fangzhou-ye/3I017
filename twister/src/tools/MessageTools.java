@@ -77,6 +77,7 @@ public class MessageTools {
 		}
 		res.put("nbMessages", my_nb_msgs);
 		res.put("messages", arr);
+		res.put("email", email);
 		return res;
 	}
 	
