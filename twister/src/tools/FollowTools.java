@@ -70,6 +70,7 @@ public class FollowTools {
 		while(rs.next()) {
 			arr.put(rs.getString("email"));
 		}
+		res.put("nbMessages", MessageTools.getMyMessages(email).getString("nbMessages"));
 		res.put("nbFollowers", arr.length());
 		res.put("email", email);
 		res.put("username", ConnectionTools.getUsernameFromEmail(email));
@@ -102,10 +103,7 @@ public class FollowTools {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, JSONException {
-		JSONArray res = (JSONArray) getAllFollowed("fangzhou.ye@yahoo.com").get("friends");
-		for(int i=0; i<res.length(); i++) {
-			System.out.println(res.getJSONObject(i));
-		}
+		System.out.println(getAllFollowed("fangzhou.ye@yahoo.com"));
 	}
 	
 }

@@ -83,7 +83,7 @@ public class MessageTools {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, JSONException, SQLException {
-		System.out.println(getAllMessages("fangzhou.ye@yahoo.com"));
+		System.out.println(getMyMessages("fangzhou.ye@yahoo.com").getString("nbMessages"));
 	}
 	
 }
