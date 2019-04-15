@@ -1,6 +1,8 @@
 package tools;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +32,16 @@ public class MessageTools {
 		return !query.isEmpty();
 	}
 	
-	public static JSONObject getAllMessages(String email) throws JSONException {
+	public static List<String> getFollowedMessages(String email) throws ClassNotFoundException, JSONException, SQLException{
+		JSONArray follows = (JSONArray) FollowTools.getAllFollowed(email).get("friends");
+		List<String> res = new ArrayList<String>();
+		for(int i=0; i<follows.length(); i++) {
+			res.add(follows.getJSONObject(i).getString("email"));
+		}
+		return res;
+	}
+	
+	public static JSONObject getMyMessages(String email) throws JSONException {
 		JSONObject res = new JSONObject();
 		JSONArray arr = new JSONArray();
 		MongoCollection<Document> col = Database.getMongoCollection(DBStatic.MONGO_COL_MESSAGE);
@@ -45,6 +56,34 @@ public class MessageTools {
 		res.put("nbMessages", arr.length());
 		res.put("messages", arr);
 		return res;
+	}
+	
+	public static JSONObject getAllMessages(String email) throws JSONException, ClassNotFoundException, SQLException {
+		List<String> emails = getFollowedMessages(email);
+		emails.add(email);
+		JSONObject res = new JSONObject();
+		JSONArray arr = new JSONArray();
+		String my_nb_msgs = "";
+		for(String mail : emails) {
+			JSONObject msg = new JSONObject();
+			JSONObject infos = getMyMessages(mail);
+			msg.put("f_email", mail);
+			msg.put("f_username", ConnectionTools.getUsernameFromEmail(mail));
+			msg.put("f_content", infos.get("messages"));
+			arr.put(msg);
+			if(mail == email) {
+				my_nb_msgs = infos.getString("nbMessages");
+			}
+		}
+		res.put("nbMessages", my_nb_msgs);
+		res.put("messages", arr);
+		return res;
+	}
+	
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, JSONException, SQLException {
+		System.out.println(getAllMessages("fangzhou.ye@yahoo.com"));
 	}
 	
 }
