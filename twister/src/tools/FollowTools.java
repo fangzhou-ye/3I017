@@ -26,6 +26,20 @@ public class FollowTools {
 		ConnectionTools.closeAll(rs, stm, conn);
 		return res;
 	}
+	/*
+	public static boolean follow(String email, String followed) throws SQLException, ClassNotFoundException {
+		int id_follower = ConnectionTools.getIdUserFromEmail(email);
+		int id_followed = ConnectionTools.getIdUserFromEmail(followed);
+		Connection conn = Database.getMySQLConnection();
+		String sql = String.format("INSERT INTO Follow (id_follower, id_followed) "
+								 + "VALUES (%d, %d);", id_follower, id_followed);
+		System.out.println(sql);
+		Statement stm = conn.createStatement();
+		boolean res = (stm.executeUpdate(sql) == 1);
+		ConnectionTools.closeAll(null, stm, conn);
+		return res;
+	}
+	*/
 	
 	public static boolean follow(String email, String followed) throws SQLException, ClassNotFoundException {
 		int id_follower = ConnectionTools.getIdUserFromEmail(email);

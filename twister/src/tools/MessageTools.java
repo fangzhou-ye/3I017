@@ -1,8 +1,11 @@
 package tools;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +43,27 @@ public class MessageTools {
 		}
 		return res;
 	}
+	/*
+	public static JSONObject getMyMessages(String email) throws JSONException {
+		JSONObject res = new JSONObject();
+		JSONArray arr = new JSONArray();
+		MongoCollection<Document> col = Database.getMongoCollection(DBStatic.MONGO_COL_MESSAGE);
+		Document query = new Document();
+		query.append("email", email);
+		MongoCursor<Document> cursor = col.find(query).iterator();
+		while(cursor.hasNext()) {
+			Document msg = cursor.next();
+			JSONObject obj = new JSONObject();
+			obj.put("content", msg.getString("content"));  
+			obj.put("date", msg.getDate("date"));
+			arr.put(obj);
+		}
+		res.put("email", email);
+		res.put("nbMessages", arr.length());
+		res.put("messages", arr);
+		return res;
+	}
+	*/
 	
 	public static JSONObject getMyMessages(String email) throws JSONException {
 		JSONObject res = new JSONObject();
@@ -83,7 +107,8 @@ public class MessageTools {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, JSONException, SQLException {
-		System.out.println(getMyMessages("fangzhou.ye@yahoo.com").getString("nbMessages"));
+		System.out.println(getMyMessages("fangzhou.ye@yahoo.com"));
+		//System.out.println(getAllMessages("fangzhou.ye@yahoo.com"));
 	}
 	
 }
